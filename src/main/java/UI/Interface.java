@@ -182,43 +182,49 @@ public class Interface extends javax.swing.JFrame {
     
     
     private void btEnviarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarDadosActionPerformed
-        try {
-        InetAddress endereco = InetAddress.getLocalHost();
-        String nomeDoComputador = endereco.getHostName();
+try {
+            // Obtém o endereço local do computador
+            InetAddress endereco = InetAddress.getLocalHost();
+            String nomeDoComputador = endereco.getHostName();
 
-        try {
-            endereco = InetAddress.getByName(nomeDoComputador);
-        } catch (UnknownHostException e) {
-            System.out.println("Erro ao obter o endereço do computador: " + e.getMessage());
-            return;
-        }
-
-        try (Socket socket = new Socket(endereco, 2000);
-             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
-
-            ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas);
-            sintomasSelecionados.add(txtNomeMedico.getText());
-            
-            System.out.println("Sintomas enviados para o servidor: " + sintomasSelecionados);
-
-            Paciente consulta = new Paciente(sintomasSelecionados); //CRIA CONSULTA PASSANDO OS SINTOMAS PARA GUARDAR NO ARRAYLIST
-
-            objectOutputStream.writeObject(consulta);
-            
-            ArrayList<String> dadosServidor = (ArrayList<String>) objectInputStream.readObject();
-
-            for (String str : dadosServidor) {
-                System.out.println("Os dados recebidos do servidor foram: " + str);
-                txtDiagnostico.setText(str);
+            // Obtém o endereço IP do computador usando o nome
+            try {
+                endereco = InetAddress.getByName(nomeDoComputador);
+            } catch (UnknownHostException e) {
+                System.err.println("Erro ao obter o endereço do computador: " + e.getMessage());
+                return;
             }
 
-            System.out.println("Socket criado com sucesso!");
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("Erro ao interagir com o servidor: " + e.getMessage());
-        }
+            // Conecta-se ao servidor e cria fluxos de entrada/saída
+            try (Socket socket = new Socket(endereco, 2000);
+                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
+
+                // Prepara os dados para enviar ao servidor
+                ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas);
+                sintomasSelecionados.add(txtNomeMedico.getText());
+                System.out.println("Sintomas enviados para o servidor: " + sintomasSelecionados);
+
+                Paciente consulta = new Paciente(sintomasSelecionados);
+
+                // Envia a consulta ao servidor
+                objectOutputStream.writeObject(consulta);
+
+                // Recebe a resposta do servidor
+                ArrayList<String> dadosServidor = (ArrayList<String>) objectInputStream.readObject();
+
+                // Exibe os dados recebidos do servidor
+                for (String str : dadosServidor) {
+                    System.out.println("Os dados recebidos do servidor foram: " + str);
+                    txtDiagnostico.setText(str);
+                }
+
+                System.out.println("Socket criado com sucesso!");
+            } catch (IOException | ClassNotFoundException e) {
+                System.err.println("Erro ao interagir com o servidor: " + e.getMessage());
+            }
         } catch (UnknownHostException e) {
-            System.out.println("Erro ao obter o endereço do computador: " + e.getMessage());
+            System.err.println("Erro ao obter o endereço do computador: " + e.getMessage());
         }
     }//GEN-LAST:event_btEnviarDadosActionPerformed
 
@@ -232,40 +238,6 @@ public class Interface extends javax.swing.JFrame {
         }
 
         return elementosSelecionados;
-    }
-    
-    
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Windows".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Interface.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new Interface().setVisible(true);
-        });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
