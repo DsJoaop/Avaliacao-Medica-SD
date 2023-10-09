@@ -4,12 +4,7 @@
  */
 package UI;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-import java.net.UnknownHostException;
+import CONECT.ServerConnection;
 import java.util.ArrayList;
 import javax.swing.JList;
 
@@ -182,49 +177,19 @@ public class Interface extends javax.swing.JFrame {
     
     
     private void btEnviarDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarDadosActionPerformed
-try {
-            // Obtém o endereço local do computador
-            InetAddress endereco = InetAddress.getLocalHost();
-            String nomeDoComputador = endereco.getHostName();
+    // Obtenha os sintomas selecionados da interface
+        ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas);
+        String nomeMedico = txtNomeMedico.getText();
 
-            // Obtém o endereço IP do computador usando o nome
-            try {
-                endereco = InetAddress.getByName(nomeDoComputador);
-            } catch (UnknownHostException e) {
-                System.err.println("Erro ao obter o endereço do computador: " + e.getMessage());
-                return;
+        // Envie a consulta para o servidor usando a nova classe de conexão
+        ArrayList<String> dadosServidor = ServerConnection.enviarConsulta(sintomasSelecionados, nomeMedico);
+
+        // Exiba os dados recebidos do servidor na interface
+        if (dadosServidor != null) {
+            for (String str : dadosServidor) {
+                System.out.println("Os dados recebidos do servidor foram: " + str);
+                txtDiagnostico.setText(str);
             }
-
-            // Conecta-se ao servidor e cria fluxos de entrada/saída
-            try (Socket socket = new Socket(endereco, 2000);
-                 ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-                 ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())) {
-
-                // Prepara os dados para enviar ao servidor
-                ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas);
-                sintomasSelecionados.add(txtNomeMedico.getText());
-                System.out.println("Sintomas enviados para o servidor: " + sintomasSelecionados);
-
-                Paciente consulta = new Paciente(sintomasSelecionados);
-
-                // Envia a consulta ao servidor
-                objectOutputStream.writeObject(consulta);
-
-                // Recebe a resposta do servidor
-                ArrayList<String> dadosServidor = (ArrayList<String>) objectInputStream.readObject();
-
-                // Exibe os dados recebidos do servidor
-                for (String str : dadosServidor) {
-                    System.out.println("Os dados recebidos do servidor foram: " + str);
-                    txtDiagnostico.setText(str);
-                }
-
-                System.out.println("Socket criado com sucesso!");
-            } catch (IOException | ClassNotFoundException e) {
-                System.err.println("Erro ao interagir com o servidor: " + e.getMessage());
-            }
-        } catch (UnknownHostException e) {
-            System.err.println("Erro ao obter o endereço do computador: " + e.getMessage());
         }
     }//GEN-LAST:event_btEnviarDadosActionPerformed
 

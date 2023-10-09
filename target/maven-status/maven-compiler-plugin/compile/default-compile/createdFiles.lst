@@ -1,2 +1,6 @@
+SERVER\Servidor.class
 UI\Interface$1.class
+CONECT\ServerConnection.class
+CONECT\Paciente.class
 UI\Interface.class
+UI\Interface$2.class

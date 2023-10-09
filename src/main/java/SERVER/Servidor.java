@@ -1,7 +1,7 @@
 package SERVER;
 
 import UI.Interface;
-import UI.Paciente;
+import CONECT.Paciente;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
