@@ -1,26 +1,18 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-package conexao;
+package model;
 
-/**
- *
- * @author joaop
- */
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Paciente implements Serializable {
+public class Consulta implements Serializable {
     private List<String> sintomas = new ArrayList<>();
     private List<String> diagnosticos = new ArrayList<>();
 
-    public Paciente(List<String> mensagemRecebida) {
+    public Consulta(List<String> mensagemRecebida) {
         sintomas.addAll(mensagemRecebida);
     }
 
-    public Paciente() {
+    public Consulta() {
     }
 
     public List<String> getSintomas() {

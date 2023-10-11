@@ -1,6 +1,7 @@
-Interface\Interface$2.class
-conexao\Paciente.class
-Interface\Interface.class
-servidor\Servidor.class
-Interface\Interface$1.class
-conexao\ServerConnection.class
+view\Interface$2.class
+model\Consulta.class
+controll\Controller.class
+app\Main.class
+view\Interface.class
+view\Interface$1.class
+server\Server.class

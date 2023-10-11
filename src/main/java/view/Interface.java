@@ -2,9 +2,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package Interface;
+package view;
 
-import conexao.ServerConnection;
+
+import controll.Controller;
 import java.util.ArrayList;
 import javax.swing.JList;
 
@@ -13,13 +14,18 @@ import javax.swing.JList;
  * @author joaop
  */
 public class Interface extends javax.swing.JFrame {
-
+    private final Controller controlador;
     /**
      * Creates new form Interface
+     * @param controlador
      */
-    public Interface() {
+    public Interface(Controller controlador) {
         initComponents();
+        this.controlador = controlador;
     }
+    
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,19 +186,17 @@ public class Interface extends javax.swing.JFrame {
     // Obtenha os sintomas selecionados da interface
         ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas);
         String nomeMedico = txtNomeMedico.getText();
+        controlador.processarConsulta(sintomasSelecionados, nomeMedico);
+    }//GEN-LAST:event_btEnviarDadosActionPerformed
 
-        // Envie a consulta para o servidor usando a nova classe de conexão
-        ArrayList<String> dadosServidor = ServerConnection.enviarConsulta(sintomasSelecionados, nomeMedico);
-
-        // Exiba os dados recebidos do servidor na interface
+    public void exibirDiagnostico(ArrayList<String> dadosServidor) {
         if (dadosServidor != null) {
             for (String str : dadosServidor) {
                 System.out.println("Os dados recebidos do servidor foram: " + str);
                 txtDiagnostico.setText(str);
             }
         }
-    }//GEN-LAST:event_btEnviarDadosActionPerformed
-
+    }
     
     public ArrayList<String> adicionarElementosSelecionados(JList<String> jList) {
         ArrayList<String> elementosSelecionados = new ArrayList<>();
