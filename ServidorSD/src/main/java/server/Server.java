@@ -22,22 +22,13 @@ public class Server {
     private static final int PORTA = 2000;
     private ServerSocket serverSocket;
     private final ArrayList<Paciente> pacienteDiagnosticados = new ArrayList<>();
-    private final ArrayList<String> diagnosticosDisponiveis = new ArrayList<>();
+    private final ArrayList<String> diagnosticosDisponiveis = new ArrayList<>(Arrays.asList(
+            "Influenza", "Hipertensão Arterial", "Diabetes Mellitus", "Câncer de Pulmão", "Doença de Alzheimer",
+            "Artrite Reumatoide", "Asma", "Infarto Agudo do Miocárdio", "Obesidade", "Dengue"
+    ));
     ControllerServer controlador;
 
     public Server(ControllerServer controlServ) {
-        this.diagnosticosDisponiveis.addAll(Arrays.asList(
-            "Influenza",
-            "Hipertensão Arterial",
-            "Diabetes Mellitus",
-            "Câncer de Pulmão",
-            "Doença de Alzheimer",
-            "Artrite Reumatoide",
-            "Asma",
-            "Infarto Agudo do Miocárdio",
-            "Obesidade",
-            "Dengue"
-        ));
         this.controlador = controlServ;
     }
     
@@ -64,29 +55,34 @@ public class Server {
             ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream())
         ) {
             System.out.println("Cliente conectado: " + socket.getInetAddress());
+
             DadosPaciente dadosPaciente = (DadosPaciente) inputStream.readObject();
-            
-            System.out.println("Recebi do paciente " + dadosPaciente.getPaciente().getNome() + " os sintomas:" + dadosPaciente.getPaciente());
-            if (dadosPaciente.getRequisicao() == Requisicao.SOLICITAR_CONSULTA) {
-                pacienteDiagnosticados.add(dadosPaciente.getPaciente());
-                // Certifique-se de ter um objeto 'diagnostico' definido
-                String diagnosticoApriori = controlador.realizarConsulta(dadosPaciente.getPaciente());
-                outputStream.writeObject(diagnosticoApriori); // Envie o diagnóstico como resposta
-            } else {
-                DadosServer dadosServidor = new DadosServer(this.diagnosticosDisponiveis, this.pacienteDiagnosticados);
-                outputStream.writeObject(dadosServidor); // Envie os dados do servidor como resposta
+
+            if (dadosPaciente.getRequisicao() == Requisicao.SOLICITAR_CONSULTA) { // Envie os dados do paciente
+                Paciente pacienteAtendido = controlador.processarSolicitacaoConsulta(dadosPaciente.getPaciente());
+                pacienteDiagnosticados.add(pacienteAtendido);
+                outputStream.writeObject(pacienteAtendido); 
+            } else { // Se não, envia os dados das listas do servidor
+                DadosServer dadosServidor = new DadosServer(this.pacienteDiagnosticados, this.diagnosticosDisponiveis);
+                outputStream.writeObject(dadosServidor); 
             }
-            
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            try {
-                socket.close();
-            } catch (IOException e) {
-                Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
-            }
+            closeSocket(socket);
         }
     }
+
+    
+
+    private void closeSocket(Socket socket) {
+        try {
+            socket.close();
+        } catch (IOException e) {
+            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
+        }
+    }
+
 
     public void encerrarServidor() {
         try {

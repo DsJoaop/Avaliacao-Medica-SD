@@ -1,5 +1,6 @@
 package controll;
 
+import java.io.IOException;
 import model.Paciente;
 
 
@@ -18,13 +19,15 @@ public class ControllerServer {
        servidor.iniciarServidor();
     }
     
-    public String realizarConsulta(Paciente paciente) {
+    
+    public Paciente processarSolicitacaoConsulta(Paciente paciente) throws IOException {
         List<String> diagnosticosDisponiveis = servidor.getDiagnosticosDisponiveis();
         // Lógica para escolher um diagnóstico aleatório
         String diagnosticoEscolhido = escolherDiagnosticoAleatorio(diagnosticosDisponiveis);
-        paciente.setDiagnosticos(diagnosticoEscolhido);
-        return paciente.getDiagnosticos();
+        paciente.setDiagnostico(diagnosticoEscolhido);
+        return paciente;
     }
+    
     
     private String escolherDiagnosticoAleatorio(List<String> diagnosticos) {
         Random random = new Random();

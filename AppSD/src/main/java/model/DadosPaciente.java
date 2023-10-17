@@ -13,6 +13,12 @@ import java.io.Serializable;
 public class DadosPaciente implements Serializable{
     private Paciente paciente;
     private Requisicao requisicao;
+    
+    
+    public DadosPaciente(Requisicao requisicao) {
+        this.requisicao = requisicao;
+    }
+    
 
     public DadosPaciente(Paciente paciente, Requisicao requisicao) {
         this.paciente = paciente;

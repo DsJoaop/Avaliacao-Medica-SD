@@ -9,7 +9,6 @@ import controll.ControllerPaciente;
 import java.util.ArrayList;
 import javax.swing.JList;
 import model.Paciente;
-import model.Requisicao;
 
 /**
  *
@@ -206,7 +205,7 @@ public class Interface extends javax.swing.JFrame {
         if(nomePaciente.isEmpty() || sintomasSelecionados.isEmpty()){
             txtDiagnostico.setText(" Preencha todos os campos!!!");
         }else{
-            controlador.FazerRequisicao(sintomasSelecionados, nomePaciente, Requisicao.SOLICITAR_CONSULTA);
+            controlador.consultar(sintomasSelecionados, nomePaciente);
         }
     }//GEN-LAST:event_btEnviarDadosActionPerformed
 

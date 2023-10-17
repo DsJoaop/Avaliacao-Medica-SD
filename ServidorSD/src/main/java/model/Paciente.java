@@ -7,9 +7,9 @@ import java.util.List;
 public class Paciente implements Serializable {
     private String nome;
     private ArrayList<String> sintomas;
-    private String diagnosticos;
+    private String diagnostico;
     
-    
+
     public Paciente(ArrayList<String> pacienteSintomas, String nome) {
         sintomas = pacienteSintomas ;
         this.nome = nome;
@@ -31,16 +31,16 @@ public class Paciente implements Serializable {
         this.sintomas = sintomas;
     }
 
-    public String getDiagnosticos() {
-        return diagnosticos;
+    public String getDiagnostico() {
+        return diagnostico;
     }
 
-    public void setDiagnosticos(String diagnostico) {
-        this.diagnosticos = diagnostico;
+    public void setDiagnostico(String diagnostico) {
+        this.diagnostico = diagnostico;
     }
 
     @Override
     public String toString() {
-        return " Nome: " + nome + "\n Sintomas: " + sintomas + "\n Diagnosticos: " + diagnosticos;
+        return " Nome: " + nome + "\n Sintomas: " + sintomas + "\n Diagnosticos: " + diagnostico;
     }
 }

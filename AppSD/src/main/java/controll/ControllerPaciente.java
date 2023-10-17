@@ -1,78 +1,102 @@
 package controll;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import model.DadosPaciente;
-import model.Paciente;
 import model.DadosServer;
+import model.Paciente;
 import model.Requisicao;
 import view.Interface;
 
 public class ControllerPaciente {
     private final Interface interfaceUsuario;
     private static final int SERVER_PORT = 2000;
-    private DadosServer resposta;
 
     public ControllerPaciente() {
         this.interfaceUsuario = new Interface(this);
     }
 
-    public DadosServer FazerRequisicao(ArrayList<String> sintomasSelecionados, String nomePaciente, Requisicao tipoRequisicao) {
-        try {
-            // Conecte ao servidor
-            Socket socket = conectarAoServidor();
+    private Socket conectarAoServidor() throws IOException {
+        InetAddress endereco = InetAddress.getLocalHost();
+        String nomeDoComputador = endereco.getHostName();
 
-            if (socket != null) {
-                // Crie fluxos de saída e entrada
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-                ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream());
-
-                // Crie objetos de paciente e dados do paciente
-                Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
-                DadosPaciente dadosPaciente = new DadosPaciente(paciente, tipoRequisicao);
-
-                // Envie a solicitação para o servidor (o paciente)
-                objectOutputStream.writeObject(dadosPaciente);
-                objectOutputStream.flush();
-
-                // Receba a resposta do servidor
-                DadosServer dadosServidor = (DadosServer) objectInputStream.readObject();
-                this.resposta = dadosServidor;
-
-                // Feche a conexão
-                socket.close();
-
-                return resposta;
-            }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        endereco = InetAddress.getByName(nomeDoComputador);
+        return new Socket(endereco, SERVER_PORT);
     }
 
-    private Socket conectarAoServidor() {
+    private void fecharRecursos(Socket socket, ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) {
         try {
-            InetAddress endereco = InetAddress.getLocalHost();
-            String nomeDoComputador = endereco.getHostName();
-
-            endereco = InetAddress.getByName(nomeDoComputador);
-            return new Socket(endereco, SERVER_PORT);
+            if (objectOutputStream != null) {
+                objectOutputStream.close();
+            }
+            if (objectInputStream != null) {
+                objectInputStream.close();
+            }
+            if (socket != null && !socket.isClosed()) {
+                socket.close();
+            }
         } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private Paciente enviarSolicitacaoConsulta(DadosPaciente dadosPaciente) {
+        try (
+            Socket socket = conectarAoServidor();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
+        ) {
+            objectOutputStream.writeObject(dadosPaciente);
+            objectOutputStream.flush();
+            return (Paciente) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
     }
 
-    public void exiberInterface() {
-        interfaceUsuario.setVisible(true);
+    public Paciente requisitarConsulta(ArrayList<String> sintomasSelecionados, String nomePaciente) {
+        Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
+        DadosPaciente dadosPaciente = new DadosPaciente(paciente, Requisicao.SOLICITAR_CONSULTA);
+        Paciente resposta = enviarSolicitacaoConsulta(dadosPaciente);
+        fecharRecursos(null, null, null); // Recursos serão fechados no bloco finally do try-with-resources.
+        return resposta;
+    }
+
+    private DadosServer enviarSolicitacaoDadosServidor(DadosPaciente dadosRecebidos) {
+        try (
+            Socket socket = conectarAoServidor();
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
+        ) {
+            objectOutputStream.writeObject(dadosRecebidos);
+            objectOutputStream.flush();
+            return (DadosServer) objectInputStream.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public DadosServer requisitarDadosServidor() {
+        DadosPaciente dadosRecebidos = new DadosPaciente(Requisicao.SOLICITAR_DIAGNOSTICOS);
+        DadosServer resposta = enviarSolicitacaoDadosServidor(dadosRecebidos);
+        fecharRecursos(null, null, null); // Recursos serão fechados no bloco finally do try-with-resources.
+        return resposta;
+    }
+
+    public void consultar(ArrayList<String> sintomasSelecionados, String nomePaciente) {
+        Paciente pacienteConsultado = requisitarConsulta(sintomasSelecionados, nomePaciente);
+        this.interfaceUsuario.exibirDiagnostico(pacienteConsultado.getDiagnostico());
     }
 
     public void listarTodosDiagnosticos() {
-        interfaceUsuario.listarDiagnostico(resposta.getPacientesDiagnosticados());
+        interfaceUsuario.listarDiagnostico(requisitarDadosServidor().getPacientesDiagnosticados());
+    }
+
+    public void exibirInterface() {
+        interfaceUsuario.setVisible(true);
     }
 }

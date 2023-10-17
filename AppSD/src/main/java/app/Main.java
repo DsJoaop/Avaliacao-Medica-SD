@@ -14,6 +14,6 @@ public class Main {
     public static void main(String[] args) {
         ControllerPaciente controlador = new ControllerPaciente();
         // Exibe a interface do usuário
-        controlador.exiberInterface();
+        controlador.exibirInterface();
     }
 }

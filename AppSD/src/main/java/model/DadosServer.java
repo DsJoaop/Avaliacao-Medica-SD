@@ -12,20 +12,22 @@ import java.util.ArrayList;
  * @author joaop
  */
 public class DadosServer implements Serializable{
-    private ArrayList<String> diagnosticosDisponiveis;
-    private ArrayList<Paciente> pacientesDiagnosticados;
-
-    public DadosServer(ArrayList<String> diagnosticosDisponiveis, ArrayList<Paciente> pacientesDiagnosticados) {
-        this.diagnosticosDisponiveis = diagnosticosDisponiveis;
+    private final ArrayList<Paciente> pacientesDiagnosticados;
+    private final ArrayList<String> diagnosticadosServer;
+    
+    public DadosServer(ArrayList<Paciente> pacientesDiagnosticados, ArrayList<String> diagnosticosDisponiveis) {
         this.pacientesDiagnosticados = pacientesDiagnosticados;
-        
-    }
-
-    public ArrayList<String> getDiagnosticosDisponiveis() {
-        return diagnosticosDisponiveis;
+        this.diagnosticadosServer = diagnosticosDisponiveis;
     }
 
     public ArrayList<Paciente> getPacientesDiagnosticados() {
         return pacientesDiagnosticados;
     }
+
+    public ArrayList<String> getDiagnosticadosServer() {
+        return diagnosticadosServer;
+    }
+    
+    
+    
 }
