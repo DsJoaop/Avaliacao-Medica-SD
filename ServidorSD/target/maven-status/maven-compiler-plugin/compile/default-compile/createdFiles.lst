@@ -1,0 +1,7 @@
+controll\ControllerServer.class
+model\Requisicao.class
+model\DadosServer.class
+app\Main.class
+model\Paciente.class
+server\Server.class
+model\DadosPaciente.class
