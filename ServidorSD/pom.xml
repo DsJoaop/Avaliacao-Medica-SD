@@ -11,4 +11,19 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>app.Main</exec.mainClass>
     </properties>
+
+    <dependencies>
+    <!-- Dependências do Deeplearning4j -->
+    <dependency>
+        <groupId>org.deeplearning4j</groupId>
+        <artifactId>deeplearning4j-core</artifactId>
+        <version>1.0.0-beta7</version> <!-- Ajuste a versão conforme necessário -->
+    </dependency>
+    <dependency>
+        <groupId>org.nd4j</groupId>
+        <artifactId>nd4j-native-platform</artifactId>
+        <version>1.0.0-beta7</version> <!-- Ajuste a versão conforme necessário -->
+    </dependency>
+</dependencies>
+
 </project>

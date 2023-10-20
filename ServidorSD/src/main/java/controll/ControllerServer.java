@@ -1,6 +1,7 @@
 package controll;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import model.Paciente;
 
 
@@ -10,9 +11,11 @@ import server.Server;
 
 public class ControllerServer {
     Server servidor;
+    private final ArrayList<Paciente> dadosTreinados;
 
     public ControllerServer() {
         this.servidor = new Server(this);
+        dadosTreinados = DataPreparation.criarDadosDeTreinamento(100);
     }
     
     public void iniciarServidor(){
