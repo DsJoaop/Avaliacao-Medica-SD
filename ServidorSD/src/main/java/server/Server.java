@@ -26,7 +26,17 @@ public class Server {
     // ArrayList de diagnósticos
     ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe", "Hipertensão", "Diabetes", "Asma", "Enxaqueca", "Artrite", "Bronquite", "Colesterol alto", "Dengue", "Rinite"));
         // ArrayList de sintomas
-    ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList("Febre", "Tosse", "Sede excessiva", "Fadiga", "Dor de cabeça", "Dor nas articulações", "Coriza", "Falta de ar", "Náusea", "Inchaço nas articulações"));
+    ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList( "Febre",
+    "Tosse",
+    "Coriza",
+    "Fadiga",
+    "Dor nas articulações",
+    "Sede excessiva",
+    "Falta de ar",
+    "Dor de cabeça",
+    "Náusea",
+    "Inchaço nas articulações"
+    ));
     private ControllerServer controlador;
 
     public Server(ControllerServer controlServ) {
