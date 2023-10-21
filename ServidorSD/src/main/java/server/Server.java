@@ -11,6 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DadosPaciente;
@@ -22,22 +23,15 @@ public class Server {
     private static final int PORTA = 2000;
     private ServerSocket serverSocket;
     private final ArrayList<Paciente> pacienteDiagnosticados = new ArrayList<>();
-    private final ArrayList<String> diagnosticosDisponiveis = new ArrayList<>(Arrays.asList(
-            "Influenza", "Hipertensão Arterial", "Diabetes Mellitus", "Câncer de Pulmão", "Doença de Alzheimer",
-            "Artrite Reumatoide", "Asma", "Infarto Agudo do Miocárdio", "Obesidade", "Dengue"
-    ));
-    private final ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList(
-            "Febre", "Dor de Cabeça", "Tosse", "Fadiga", "Dor de Garganta",
-            "Dificuldade Respiratória", "Náusea", "Vômito", "Dor nas Articulações", "Pressão Alta"
-        ));
-
-    
-    ControllerServer controlador;
+    // ArrayList de diagnósticos
+    ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe", "Hipertensão", "Diabetes", "Asma", "Enxaqueca", "Artrite", "Bronquite", "Colesterol alto", "Dengue", "Rinite"));
+        // ArrayList de sintomas
+    ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList("Febre", "Tosse", "Sede excessiva", "Fadiga", "Dor de cabeça", "Dor nas articulações", "Coriza", "Falta de ar", "Náusea", "Inchaço nas articulações"));
+    private ControllerServer controlador;
 
     public Server(ControllerServer controlServ) {
         this.controlador = controlServ;
     }
-    
 
     public void iniciarServidor() {
         try {
@@ -46,7 +40,7 @@ public class Server {
 
             while (true) {
                 Socket socket = serverSocket.accept();
-                processarConexao(socket);
+                new Thread(() -> processarConexao(socket)).start();
             }
         } catch (BindException e) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
@@ -64,13 +58,13 @@ public class Server {
 
             DadosPaciente dadosPaciente = (DadosPaciente) inputStream.readObject();
 
-            if (dadosPaciente.getRequisicao() == Requisicao.SOLICITAR_CONSULTA) { // Envie os dados do paciente
+            if (dadosPaciente.getRequisicao() == Requisicao.SOLICITAR_CONSULTA) {
                 Paciente pacienteAtendido = controlador.processarSolicitacaoConsulta(dadosPaciente.getPaciente());
                 pacienteDiagnosticados.add(pacienteAtendido);
-                outputStream.writeObject(pacienteAtendido); 
-            } else { // Se não, envia os dados das listas do servidor
-                DadosServer dadosServidor = new DadosServer(this.pacienteDiagnosticados, this.diagnosticosDisponiveis);
-                outputStream.writeObject(dadosServidor); 
+                outputStream.writeObject(pacienteAtendido);
+            } else {
+                DadosServer dadosServidor = new DadosServer(this.pacienteDiagnosticados, this.sintomasDisponiveis);
+                outputStream.writeObject(dadosServidor);
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,8 +73,6 @@ public class Server {
         }
     }
 
-    
-
     private void closeSocket(Socket socket) {
         try {
             socket.close();
@@ -88,7 +80,6 @@ public class Server {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
 
     public void encerrarServidor() {
         try {
@@ -99,17 +90,16 @@ public class Server {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-    
-    public ArrayList<String> getDiagnosticosDisponiveis() {
-        return diagnosticosDisponiveis;
+
+    public List<String> getDiagnosticosDisponiveis() {
+        return possiveisDiagnosticos;
     }
 
-    public ArrayList<Paciente> getPacienteDiagnosticados() {
+    public List<Paciente> getPacientesDiagnosticados() {
         return pacienteDiagnosticados;
     }
-    
-    
-    public ArrayList<String> getSintomasDisponiveis() {
+
+    public List<String> getSintomasDisponiveis() {
         return sintomasDisponiveis;
     }
 }
