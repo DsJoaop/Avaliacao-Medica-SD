@@ -4,7 +4,7 @@
  */
 package app;
 
-import controll.ControllerServer;
+import controller.ControllerServer;
 
 /**
  *

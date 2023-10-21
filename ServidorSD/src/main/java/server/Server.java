@@ -1,6 +1,6 @@
 package server;
 
-import controll.ControllerServer;
+import controller.ControllerServer;
 import model.Paciente;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DadosPaciente;
 import model.DadosServer;
-import controll.Requisicao;
+import controller.Requisicao;
 
 public class Server {
 
