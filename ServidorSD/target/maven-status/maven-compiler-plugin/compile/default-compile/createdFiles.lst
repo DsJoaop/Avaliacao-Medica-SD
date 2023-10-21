@@ -1,9 +1,7 @@
 controller\Requisicao.class
 model\DadosServer.class
+controller\Wisard.class
 controller\ControllerServer.class
-app\Main.class
-controller\PreparacaoDados.class
 model\Paciente.class
-controller\WiSARD.class
 server\Server.class
 model\DadosPaciente.class
