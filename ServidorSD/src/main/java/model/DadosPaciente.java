@@ -4,6 +4,7 @@
  */
 package model;
 
+import controller.Requisicao;
 import java.io.Serializable;
 
 /**

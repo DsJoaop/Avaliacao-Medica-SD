@@ -5,7 +5,7 @@
 package view;
 
 
-import controll.ControllerPaciente;
+import controller.ControllerPaciente;
 import java.util.ArrayList;
 import javax.swing.JList;
 import model.Paciente;
@@ -74,7 +74,7 @@ public class Interface extends javax.swing.JFrame {
         listaDeSintomas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "\n"));
         listaDeSintomas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         listaDeSintomas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Febre alta repentina", "Tosse persistente", "Dor de cabeça intensa", "Falta de ar", "Fadiga extrema", "Dor abdominal intensa", "Sangramento anormal", "Perda de peso inexplicável", "Visão turva ou embaçada", "Vômitos frequentes" };
+            String[] strings = { "Febre", "Dor de Cabeça", "Tosse", "Fadiga", "Dor de Garganta", "Dificuldade Respiratória", "Náusea", "Vômito", "Dor nas Articulações", "Pressão Alta" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });

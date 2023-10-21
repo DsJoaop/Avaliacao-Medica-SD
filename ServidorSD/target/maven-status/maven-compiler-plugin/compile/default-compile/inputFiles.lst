@@ -1,7 +1,9 @@
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\Requisicao.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\app\Main.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\DadosServer.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\controll\ControllerServer.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\Paciente.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\server\Server.java
-D:\Users\2021122760194\Desktop\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\DadosPaciente.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\app\Main.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\DadosServer.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\DadosPaciente.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\controller\PreparacaoDados.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\controller\Requisicao.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\server\Server.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\model\Paciente.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\controller\WiSARD.java
+C:\Users\joaop\Documentos\git\Avaliacao-Medica-SD\ServidorSD\src\main\java\controller\ControllerServer.java

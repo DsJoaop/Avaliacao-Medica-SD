@@ -1,10 +1,11 @@
-model\Requisicao.class
 view\Interface$2.class
+controller\Requisicao.class
 model\DadosServer.class
-controll\ControllerPaciente.class
+controller\ControllerPaciente.class
 app\Main.class
 view\Interface.class
 view\Interface$3.class
 model\Paciente.class
+view\Interface$4.class
 view\Interface$1.class
 model\DadosPaciente.class

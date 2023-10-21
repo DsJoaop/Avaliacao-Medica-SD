@@ -4,7 +4,7 @@
  */
 package app;
 
-import controll.ControllerPaciente;
+import controller.ControllerPaciente;
 
 /**
  *

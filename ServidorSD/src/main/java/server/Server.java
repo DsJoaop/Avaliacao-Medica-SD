@@ -1,6 +1,6 @@
 package server;
 
-import controll.ControllerServer;
+import controller.ControllerServer;
 import model.Paciente;
 
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.DadosPaciente;
 import model.DadosServer;
-import model.Requisicao;
+import controller.Requisicao;
 
 public class Server {
 
@@ -26,6 +26,12 @@ public class Server {
             "Influenza", "Hipertensão Arterial", "Diabetes Mellitus", "Câncer de Pulmão", "Doença de Alzheimer",
             "Artrite Reumatoide", "Asma", "Infarto Agudo do Miocárdio", "Obesidade", "Dengue"
     ));
+    private final ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList(
+            "Febre", "Dor de Cabeça", "Tosse", "Fadiga", "Dor de Garganta",
+            "Dificuldade Respiratória", "Náusea", "Vômito", "Dor nas Articulações", "Pressão Alta"
+        ));
+
+    
     ControllerServer controlador;
 
     public Server(ControllerServer controlServ) {
@@ -100,5 +106,10 @@ public class Server {
 
     public ArrayList<Paciente> getPacienteDiagnosticados() {
         return pacienteDiagnosticados;
+    }
+    
+    
+    public ArrayList<String> getSintomasDisponiveis() {
+        return sintomasDisponiveis;
     }
 }

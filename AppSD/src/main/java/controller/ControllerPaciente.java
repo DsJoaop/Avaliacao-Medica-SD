@@ -1,4 +1,4 @@
-package controll;
+package controller;
 
 import java.io.*;
 import java.net.InetAddress;
@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import model.DadosPaciente;
 import model.DadosServer;
 import model.Paciente;
-import model.Requisicao;
 import view.Interface;
 
 public class ControllerPaciente {
