@@ -74,7 +74,7 @@ public class Interface extends javax.swing.JFrame {
         listaDeSintomas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "\n"));
         listaDeSintomas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
         listaDeSintomas.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Febre", "Tosse", "Coriza", "Fadiga", "Dor nas articulações", "Sede excessiva", "Falta de ar", "Dor de cabeça", "Náusea", "Inchaço nas articulações" };
+            String[] strings = { "Tosse", "Coriza", "Febre", "Espirro", "Dor nas articulações", "Inchaço nas articulações", "Fadiga", "Falta de ar", "Dor de cabeça", "Dor no peito" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });

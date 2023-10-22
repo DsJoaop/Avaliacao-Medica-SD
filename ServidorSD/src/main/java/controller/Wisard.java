@@ -22,16 +22,40 @@ public class Wisard {
     }
     
     private void treinarWisard() {    
-        treinar("Gripe", new ArrayList<>(Arrays.asList("Febre", "Tosse", "Coriza")));
-        treinar("Hipertensão", new ArrayList<>(Arrays.asList("Fadiga", "Dor nas articulações")));
-        treinar("Diabetes", new ArrayList<>(Arrays.asList("Sede excessiva", "Fadiga")));
-        treinar("Asma", new ArrayList<>(Arrays.asList("Tosse", "Falta de ar")));
-        treinar("Enxaqueca", new ArrayList<>(Arrays.asList("Dor de cabeça", "Náusea")));
-        treinar("Artrite", new ArrayList<>(Arrays.asList("Inchaço nas articulações", "Dor nas articulações")));
-        treinar("Bronquite", new ArrayList<>(Arrays.asList("Tosse", "Dificuldade respiratória")));
-        treinar("Colesterol alto", new ArrayList<>(Arrays.asList("Dor no peito", "Fadiga")));
-        treinar("Dengue", new ArrayList<>(Arrays.asList("Febre", "Manchas na pele")));
-        treinar("Rinite", new ArrayList<>(Arrays.asList("Coriza", "Espirros")));
+        
+        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre"));
+        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações"));
+        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse"));
+        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça"));
+        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar"));
+        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito"));
+        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre"));
+        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar"));
+        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro"));
+        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse"));
+
+        
+        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
+        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
+        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
+        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça", "Fadiga"));
+        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar", "Febre"));
+        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito", "Fadiga", "Febre"));
+        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro", "Fadiga"));
+        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar", "Febre", "Espirro"));
+        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro", "Fadiga"));
+        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse", "Fadiga"));
+        
+        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
+        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
+        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
+        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça", "Fadiga"));
+        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar", "Febre"));
+        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito", "Fadiga", "Febre"));
+        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro", "Fadiga"));
+        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar", "Febre", "Espirro"));
+        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro", "Fadiga"));
+        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse", "Fadiga"));
 
     }
 

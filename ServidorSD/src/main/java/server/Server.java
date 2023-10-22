@@ -24,19 +24,32 @@ public class Server {
     private ServerSocket serverSocket;
     private final ArrayList<Paciente> pacienteDiagnosticados = new ArrayList<>();
     // ArrayList de diagnósticos
-    ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe", "Hipertensão", "Diabetes", "Asma", "Enxaqueca", "Artrite", "Bronquite", "Colesterol alto", "Dengue", "Rinite"));
+    ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe",
+     "Resfriado Comum",
+    "Artrite Reumatoide",
+    "Asma Alérgica",
+    "Enxaqueca Crônica",
+    "Bronquite Aguda",
+    "Infarto Agudo do Miocárdio",
+    "Gripe Sazonal",
+    "Pneumonia Viral",
+    "Rinite Alérgica",
+    "Doença Pulmonar Obstrutiva Crônica"));
         // ArrayList de sintomas
     ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList( "Febre",
     "Tosse",
     "Coriza",
     "Fadiga",
     "Dor nas articulações",
-    "Sede excessiva",
+    "Espirro",
     "Falta de ar",
     "Dor de cabeça",
-    "Náusea",
-    "Inchaço nas articulações"
+    "Inchaço nas articulações",
+    "Dor no peito",
+    "Febre"
     ));
+    
+    
     private ControllerServer controlador;
 
     public Server(ControllerServer controlServ) {
