@@ -1,4 +1,5 @@
 package controller;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -9,6 +10,13 @@ public class Wisard {
     private final Map<String, Map<String, Boolean>> celulasRAM;
 
     public Wisard(List<String> diagnosticos, List<String> sintomas) {
+        if (diagnosticos == null || diagnosticos.isEmpty()) {
+            throw new IllegalArgumentException("A lista de diagnósticos não pode ser nula ou vazia.");
+        }
+        if (sintomas == null || sintomas.isEmpty()) {
+            throw new IllegalArgumentException("A lista de sintomas não pode ser nula ou vazia.");
+        }
+
         celulasRAM = new HashMap<>();
         for (String diagnostico : diagnosticos) {
             celulasRAM.put(diagnostico, new HashMap<>());
@@ -20,11 +28,9 @@ public class Wisard {
         }
         treinarWisard();
     }
-    
-    private void treinarWisard() {    
-        
-         Map<String, List<String>> dadosDeTreinamento = new HashMap<>();
 
+    private void treinarWisard() {
+         Map<String, List<String>> dadosDeTreinamento = new HashMap<>();
         dadosDeTreinamento.put("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
         dadosDeTreinamento.put("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
         dadosDeTreinamento.put("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
@@ -39,27 +45,57 @@ public class Wisard {
         for (Map.Entry<String, List<String>> entry : dadosDeTreinamento.entrySet()) {
             treinar(entry.getKey(), entry.getValue());
         }
-
     }
 
     public void treinar(String diagnostico, List<String> sintomasAssociados) {
-    if (celulasRAM.containsKey(diagnostico)) {
+        if (!existeDiagnostico(diagnostico)) {
+            System.out.println("Diagnóstico não existe na base de dados: " + diagnostico);
+        }
+
         for (String sintoma : sintomasAssociados) {
-            if (celulasRAM.get(diagnostico).containsKey(sintoma)) {
+            if (existeSintoma(sintoma)) {
                 celulasRAM.get(diagnostico).put(sintoma, true);
             } else {
-                // Lidar com casos em que o sintoma não existe na base de dados
-                System.out.println("Aviso: O sintoma '" + sintoma + "' não existe na base de dados.");
+                System.out.println("Aviso: O sintoma '" + sintoma + "' não existe na base de dados para o diagnóstico '" + diagnostico + "'.");
             }
         }
-    } else {
-        // Lidar com casos em que o diagnóstico não existe na base de dados
-        System.out.println("Aviso: O diagnóstico '" + diagnostico + "' não existe na base de dados.");
     }
-}
 
     public String classificar(List<String> sintomasPaciente) {
-        // Certifique-se de que os sintomas existem na base de dados antes de usá-los
+        List<String> sintomasValidos = filtrarSintomasValidos(sintomasPaciente);
+
+        Map<String, Double> contagemAtivacoes = new HashMap<>();
+        for (String diagnostico : celulasRAM.keySet()) {
+            double contagemAtivacao = 0.0;
+            for (String sintoma : sintomasValidos) {
+                if (celulasRAM.get(diagnostico).get(sintoma)) {
+                    contagemAtivacao += 1.0;
+                }
+            }
+            contagemAtivacoes.put(diagnostico, mapearEntrada(contagemAtivacao));
+        }
+
+        return obterDiagnosticoPrevisto(contagemAtivacoes);
+    }
+    
+    public double mapearEntrada(double x) {
+        return 1.0 / (1.0 + Math.exp(-x));
+    }
+
+    private boolean existeDiagnostico(String diagnostico) {
+        return celulasRAM.containsKey(diagnostico);
+    }
+
+    private boolean existeSintoma(String sintoma) {
+        for (String diagnostico : celulasRAM.keySet()) {
+            if (celulasRAM.get(diagnostico).containsKey(sintoma)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private List<String> filtrarSintomasValidos(List<String> sintomasPaciente) {
         List<String> sintomasValidos = new ArrayList<>();
         for (String sintoma : sintomasPaciente) {
             for (String diagnostico : celulasRAM.keySet()) {
@@ -69,18 +105,10 @@ public class Wisard {
                 }
             }
         }
+        return sintomasValidos;
+    }
 
-        Map<String, Double> contagemAtivacoes = new HashMap<>();
-        for (String diagnostico : celulasRAM.keySet()) {
-            double contagemAtivacao = 0.0;
-            for (String sintoma : sintomasValidos) {
-                if (celulasRAM.get(diagnostico).get(sintoma)) {
-                    contagemAtivacao += 1.0; // Use uma função de ativação apropriada
-                }
-            }
-            contagemAtivacoes.put(diagnostico, contagemAtivacao);
-        }
-
+    private String obterDiagnosticoPrevisto(Map<String, Double> contagemAtivacoes) {
         double maximaContagemAtivacao = 0.0;
         String diagnosticoPrevisto = null;
         for (Map.Entry<String, Double> entrada : contagemAtivacoes.entrySet()) {
@@ -89,8 +117,6 @@ public class Wisard {
                 diagnosticoPrevisto = entrada.getKey();
             }
         }
-
         return diagnosticoPrevisto;
     }
-
 }
