@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.Arrays;
 import model.Paciente;
 
 import server.Server;

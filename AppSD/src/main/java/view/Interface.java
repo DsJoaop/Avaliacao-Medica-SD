@@ -227,12 +227,14 @@ public class Interface extends javax.swing.JFrame {
     }
     
     public void listarDiagnostico(ArrayList<Paciente> pacientes) {
-    if (pacientes != null) {
-        StringBuilder diagnosticos = new StringBuilder();
-        for (Paciente paciente : pacientes) {
-            diagnosticos.append(paciente.toString()).append("\n\n");
-        }
-        txtDiagnostico.setText(diagnosticos.toString());
+        if (pacientes != null) {
+            StringBuilder diagnosticos = new StringBuilder();
+            for (Paciente paciente : pacientes) {
+                diagnosticos.append(paciente.toString()).append("\n\n");
+            }
+            txtDiagnostico.setText(diagnosticos.toString());
+        }else{
+            txtDiagnostico.setText("Erro, a lista de pacientes está nula");
         }
     }
     

@@ -20,25 +20,8 @@ public class ControllerPaciente {
     private Socket conectarAoServidor() throws IOException {
         InetAddress endereco = InetAddress.getLocalHost();
         String nomeDoComputador = endereco.getHostName();
-
         endereco = InetAddress.getByName(nomeDoComputador);
         return new Socket(endereco, SERVER_PORT);
-    }
-
-    private void fecharRecursos(Socket socket, ObjectOutputStream objectOutputStream, ObjectInputStream objectInputStream) {
-        try {
-            if (objectOutputStream != null) {
-                objectOutputStream.close();
-            }
-            if (objectInputStream != null) {
-                objectInputStream.close();
-            }
-            if (socket != null && !socket.isClosed()) {
-                socket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     private Paciente enviarSolicitacaoConsulta(DadosPaciente dadosPaciente) {
@@ -56,14 +39,6 @@ public class ControllerPaciente {
         }
     }
 
-    public Paciente requisitarConsulta(ArrayList<String> sintomasSelecionados, String nomePaciente) {
-        Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
-        DadosPaciente dadosPaciente = new DadosPaciente(paciente, Requisicao.SOLICITAR_CONSULTA);
-        Paciente resposta = enviarSolicitacaoConsulta(dadosPaciente);
-        fecharRecursos(null, null, null); // Recursos serão fechados no bloco finally do try-with-resources.
-        return resposta;
-    }
-
     private DadosServer enviarSolicitacaoDadosServidor(DadosPaciente dadosRecebidos) {
         try (
             Socket socket = conectarAoServidor();
@@ -79,10 +54,16 @@ public class ControllerPaciente {
         }
     }
 
+    public Paciente requisitarConsulta(ArrayList<String> sintomasSelecionados, String nomePaciente) {
+        Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
+        DadosPaciente dadosPaciente = new DadosPaciente(paciente, Requisicao.SOLICITAR_CONSULTA);
+        Paciente resposta = enviarSolicitacaoConsulta(dadosPaciente);
+        return resposta;
+    }
+
     public DadosServer requisitarDadosServidor() {
         DadosPaciente dadosRecebidos = new DadosPaciente(Requisicao.SOLICITAR_DIAGNOSTICOS);
         DadosServer resposta = enviarSolicitacaoDadosServidor(dadosRecebidos);
-        fecharRecursos(null, null, null); // Recursos serão fechados no bloco finally do try-with-resources.
         return resposta;
     }
 

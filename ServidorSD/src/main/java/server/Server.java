@@ -82,16 +82,6 @@ public class Server {
         }
     }
 
-    public void encerrarServidor() {
-        try {
-            if (serverSocket != null && !serverSocket.isClosed()) {
-                serverSocket.close();
-            }
-        } catch (IOException e) {
-            Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }
-
     public ArrayList<String> getDiagnosticosDisponiveis() {
         return possiveisDiagnosticos;
     }
