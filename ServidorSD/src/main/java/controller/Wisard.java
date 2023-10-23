@@ -23,39 +23,22 @@ public class Wisard {
     
     private void treinarWisard() {    
         
-        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre"));
-        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações"));
-        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse"));
-        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça"));
-        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar"));
-        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito"));
-        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre"));
-        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar"));
-        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro"));
-        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse"));
+         Map<String, List<String>> dadosDeTreinamento = new HashMap<>();
 
-        
-        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
-        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
-        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
-        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça", "Fadiga"));
-        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar", "Febre"));
-        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito", "Fadiga", "Febre"));
-        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro", "Fadiga"));
-        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar", "Febre", "Espirro"));
-        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro", "Fadiga"));
-        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse", "Fadiga"));
-        
-        treinar("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
-        treinar("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
-        treinar("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
-        treinar("Enxaqueca Crônica", Arrays.asList("Dor de cabeça", "Fadiga"));
-        treinar("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar", "Febre"));
-        treinar("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito", "Fadiga", "Febre"));
-        treinar("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro", "Fadiga"));
-        treinar("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar", "Febre", "Espirro"));
-        treinar("Rinite Alérgica", Arrays.asList("Coriza", "Espirro", "Fadiga"));
-        treinar("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse", "Fadiga"));
+        dadosDeTreinamento.put("Resfriado Comum", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro"));
+        dadosDeTreinamento.put("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações", "Fadiga"));
+        dadosDeTreinamento.put("Asma Alérgica", Arrays.asList("Falta de ar", "Tosse", "Espirro"));
+        dadosDeTreinamento.put("Enxaqueca Crônica", Arrays.asList("Dor de cabeça", "Fadiga"));
+        dadosDeTreinamento.put("Bronquite Aguda", Arrays.asList("Tosse", "Falta de ar", "Febre"));
+        dadosDeTreinamento.put("Infarto Agudo do Miocárdio", Arrays.asList("Dor no peito", "Fadiga", "Febre"));
+        dadosDeTreinamento.put("Gripe Sazonal", Arrays.asList("Tosse", "Coriza", "Febre", "Espirro", "Fadiga"));
+        dadosDeTreinamento.put("Pneumonia Viral", Arrays.asList("Tosse", "Falta de ar", "Febre"));
+        dadosDeTreinamento.put("Rinite Alérgica", Arrays.asList("Coriza", "Espirro", "Fadiga"));
+        dadosDeTreinamento.put("Doença Pulmonar Obstrutiva Crônica", Arrays.asList("Falta de ar", "Tosse", "Fadiga"));
+
+        for (Map.Entry<String, List<String>> entry : dadosDeTreinamento.entrySet()) {
+            treinar(entry.getKey(), entry.getValue());
+        }
 
     }
 
