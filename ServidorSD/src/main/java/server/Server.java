@@ -30,7 +30,7 @@ public class Server {
             "Febre", "Tosse", "Coriza", "Fadiga", "Dor nas articulações", "Espirro",
             "Falta de ar", "Dor de cabeça", "Inchaço nas articulações", "Dor no peito", "Febre"));
 
-    private ControllerServer controlador;
+    private final ControllerServer controlador;
 
     public Server(ControllerServer controlador) {
         this.controlador = controlador;
