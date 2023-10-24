@@ -1,6 +1,10 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import model.Diagnostico;
 import model.Paciente;
 
 import server.Server;
@@ -9,10 +13,13 @@ import server.Server;
 public class ControllerServer {
     private final Server servidor;
     private final Wisard wisard;
-    
+    private final ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe",  "Artrite Reumatoide", "Asma Alérgica", "Enxaqueca Crônica","Bronquite Aguda"));
+    private final ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList("Febre", "Tosse", "Coriza", "Fadiga", "Dor nas articulações", "Espirro","Falta de ar", "Dor de cabeça", "Inchaço nas articulações", "Dor no peito", "Febre"));
+    private List<Diagnostico> diagnosticosRecebidos = new ArrayList<>();
+ 
     public ControllerServer() {
         this.servidor = new Server(this);
-        this.wisard = new Wisard(servidor.getDiagnosticosDisponiveis(), servidor.getSintomasDisponiveis());
+        this.wisard = new Wisard(possiveisDiagnosticos, sintomasDisponiveis);
     }
     
     public void iniciarServidor(){
@@ -29,5 +36,11 @@ public class ControllerServer {
     public static void main(String[] args) {
         ControllerServer controlador = new ControllerServer();
         controlador.iniciarServidor();
+    }
+
+    public String enviarDiagnostico(Diagnostico diagnostico) {
+        diagnosticosRecebidos.add(diagnostico);
+        wisard.treinarWisardComDiagnósticos(diagnosticosRecebidos);
+        return "Diagnóstico recebido com sucesso!";
     }
 }

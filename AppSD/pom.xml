@@ -11,5 +11,5 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>app.Main</exec.mainClass>
     </properties>
-    <name>AppSD</name>
+    <name>InterfaceSD</name>
 </project>

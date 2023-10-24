@@ -10,5 +10,6 @@ package controller;
  */
 public enum Requisicao {
     SOLICITAR_CONSULTA,
-    SOLICITAR_DIAGNOSTICOS
+    SOLICITAR_DIAGNOSTICOS,
+    ENVIAR_DIAGNOSTICO
 }

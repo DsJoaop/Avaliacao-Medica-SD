@@ -2,9 +2,8 @@ package server;
 
 import controller.ControllerServer;
 import model.Paciente;
-import model.DadosPaciente;
-import model.DadosServer;
-import controller.Requisicao;
+import model.DadosInterface;
+import model.Diagnostico;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -13,27 +12,18 @@ import java.net.BindException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class Server {
     private static final int PORTA = 2000;
-
     private ServerSocket serverSocket;
-    private final ArrayList<Paciente> pacientesDiagnosticados = new ArrayList<>();
-    private final ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList(
-            "Gripe", "Resfriado Comum", "Artrite Reumatoide", "Asma Alérgica", "Enxaqueca Crônica",
-            "Bronquite Aguda", "Infarto Agudo do Miocárdio", "Gripe Sazonal", "Pneumonia Viral",
-            "Rinite Alérgica", "Doença Pulmonar Obstrutiva Crônica"));
-    private final ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList(
-            "Febre", "Tosse", "Coriza", "Fadiga", "Dor nas articulações", "Espirro",
-            "Falta de ar", "Dor de cabeça", "Inchaço nas articulações", "Dor no peito", "Febre"));
-
+    private final ArrayList<Paciente> pacientesDiagnosticados;
     private final ControllerServer controlador;
 
     public Server(ControllerServer controlador) {
         this.controlador = controlador;
+        this.pacientesDiagnosticados = new ArrayList<>();
     }
 
     public void iniciarServidor() {
@@ -57,15 +47,22 @@ public class Server {
              ObjectOutputStream outputStream = new ObjectOutputStream(socket.getOutputStream())) {
 
             System.out.println("Cliente conectado: " + socket.getInetAddress());
-            DadosPaciente dadosPaciente = (DadosPaciente) inputStream.readObject();
+            DadosInterface dadosInterface = (DadosInterface) inputStream.readObject();
 
-            if (dadosPaciente.getRequisicao() == Requisicao.SOLICITAR_CONSULTA) {
-                Paciente pacienteAtendido = controlador.processarSolicitacaoConsulta(dadosPaciente.getPaciente());
-                pacientesDiagnosticados.add(pacienteAtendido);
-                outputStream.writeObject(pacienteAtendido);
-            } else {
-                DadosServer dadosServidor = new DadosServer(this.pacientesDiagnosticados, this.sintomasDisponiveis);
-                outputStream.writeObject(dadosServidor);
+            switch (dadosInterface.getRequisicao()) {
+                case SOLICITAR_CONSULTA -> {
+                    Paciente pacienteAtendido = controlador.processarSolicitacaoConsulta(dadosInterface.getPaciente());
+                    pacientesDiagnosticados.add(pacienteAtendido);
+                    outputStream.writeObject(pacienteAtendido);
+                }
+                case SOLICITAR_DIAGNOSTICOS -> {
+                    outputStream.writeObject(this.pacientesDiagnosticados);
+                }
+                default -> {
+                    Diagnostico diagnostico = dadosInterface.getDiagnostico();
+                    String mensagem = controlador.enviarDiagnostico(diagnostico);
+                    outputStream.writeObject(mensagem);
+                }
             }
         } catch (IOException | ClassNotFoundException ex) {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, ex);
@@ -73,6 +70,7 @@ public class Server {
             closeSocket(socket);
         }
     }
+
 
     private void closeSocket(Socket socket) {
         try {
@@ -82,15 +80,7 @@ public class Server {
         }
     }
 
-    public ArrayList<String> getDiagnosticosDisponiveis() {
-        return possiveisDiagnosticos;
-    }
-
     public ArrayList<Paciente> getPacientesDiagnosticados() {
         return pacientesDiagnosticados;
-    }
-
-    public ArrayList<String> getSintomasDisponiveis() {
-        return sintomasDisponiveis;
     }
 }

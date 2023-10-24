@@ -4,8 +4,8 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.ArrayList;
-import model.DadosPaciente;
-import model.DadosServer;
+import model.DadosInterface;
+import model.Diagnostico;
 import model.Paciente;
 import view.Interface;
 
@@ -24,56 +24,39 @@ public class ControllerPaciente {
         return new Socket(endereco, SERVER_PORT);
     }
 
-    private Paciente enviarSolicitacaoConsulta(DadosPaciente dadosPaciente) {
+    private <T> T enviarSolicitacao(DadosInterface dados, Class<T> responseType) {
         try (
             Socket socket = conectarAoServidor();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
         ) {
-            objectOutputStream.writeObject(dadosPaciente);
+            objectOutputStream.writeObject(dados);
             objectOutputStream.flush();
-            return (Paciente) objectInputStream.readObject();
+            Object resposta = objectInputStream.readObject();
+            return responseType.cast(resposta);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
         }
-    }
-
-    private DadosServer enviarSolicitacaoDadosServidor(DadosPaciente dadosRecebidos) {
-        try (
-            Socket socket = conectarAoServidor();
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
-            ObjectInputStream objectInputStream = new ObjectInputStream(socket.getInputStream())
-        ) {
-            objectOutputStream.writeObject(dadosRecebidos);
-            objectOutputStream.flush();
-            return (DadosServer) objectInputStream.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-    public Paciente requisitarConsulta(ArrayList<String> sintomasSelecionados, String nomePaciente) {
-        Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
-        DadosPaciente dadosPaciente = new DadosPaciente(paciente, Requisicao.SOLICITAR_CONSULTA);
-        Paciente resposta = enviarSolicitacaoConsulta(dadosPaciente);
-        return resposta;
-    }
-
-    public DadosServer requisitarDadosServidor() {
-        DadosPaciente dadosRecebidos = new DadosPaciente(Requisicao.SOLICITAR_DIAGNOSTICOS);
-        DadosServer resposta = enviarSolicitacaoDadosServidor(dadosRecebidos);
-        return resposta;
     }
 
     public void consultar(ArrayList<String> sintomasSelecionados, String nomePaciente) {
-        Paciente pacienteConsultado = requisitarConsulta(sintomasSelecionados, nomePaciente);
+        Paciente paciente = new Paciente(sintomasSelecionados, nomePaciente);
+        DadosInterface dadosPaciente = new DadosInterface(paciente, Requisicao.SOLICITAR_CONSULTA);
+        Paciente pacienteConsultado = enviarSolicitacao(dadosPaciente, Paciente.class);
         this.interfaceUsuario.exibirDiagnostico(pacienteConsultado.getDiagnostico());
     }
 
-    public void listarTodosDiagnosticos() {
-        interfaceUsuario.listarDiagnostico(requisitarDadosServidor().getPacientesDiagnosticados());
+    public String enviarDiagnostico(ArrayList<String> sintomasSelecionados, String diagnostico) {
+        Diagnostico dadosDiagnostico = new Diagnostico(diagnostico, sintomasSelecionados);
+        DadosInterface dadosInterface = new DadosInterface(dadosDiagnostico, Requisicao.ENVIAR_DIAGNOSTICO);
+        return enviarSolicitacao(dadosInterface, String.class);
+    }
+
+    public void requisitarDadosServidor() {
+        DadosInterface dadosRecebidos = new DadosInterface(Requisicao.SOLICITAR_DIAGNOSTICOS);
+        ArrayList pacienteDiagnosticados = enviarSolicitacao(dadosRecebidos, ArrayList.class);
+        interfaceUsuario.listarDiagnostico(pacienteDiagnosticados);
     }
 
     public void exibirInterface() {

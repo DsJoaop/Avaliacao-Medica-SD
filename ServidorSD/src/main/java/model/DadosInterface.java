@@ -11,18 +11,24 @@ import java.io.Serializable;
  *
  * @author joaop
  */
-public class DadosPaciente implements Serializable{
+public class DadosInterface implements Serializable{
     private Paciente paciente;
+    private Diagnostico diagnostico;
     private Requisicao requisicao;
     
     
-    public DadosPaciente(Requisicao requisicao) {
+    public DadosInterface(Requisicao requisicao) {
         this.requisicao = requisicao;
     }
     
 
-    public DadosPaciente(Paciente paciente, Requisicao requisicao) {
+    public DadosInterface(Paciente paciente, Requisicao requisicao) {
         this.paciente = paciente;
+        this.requisicao = requisicao;
+    }
+    
+    public DadosInterface(Diagnostico diagnostico, Requisicao requisicao) {
+        this.diagnostico = diagnostico;
         this.requisicao = requisicao;
     }
 
@@ -41,6 +47,15 @@ public class DadosPaciente implements Serializable{
     public void setRequisicao(Requisicao requisicao) {
         this.requisicao = requisicao;
     }
+
+    public Diagnostico getDiagnostico() {
+        return diagnostico;
+    }
+
+    public void setDiagnostico(Diagnostico diagnostico) {
+        this.diagnostico = diagnostico;
+    }
+    
     
     
 }
