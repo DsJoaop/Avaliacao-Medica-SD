@@ -79,8 +79,4 @@ public class Server {
             Logger.getLogger(Server.class.getName()).log(Level.SEVERE, null, e);
         }
     }
-
-    public ArrayList<Paciente> getPacientesDiagnosticados() {
-        return pacientesDiagnosticados;
-    }
 }

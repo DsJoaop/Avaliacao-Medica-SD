@@ -3,7 +3,6 @@ package controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import model.Diagnostico;
 import model.Paciente;
 
@@ -32,13 +31,15 @@ public class ControllerServer {
         return paciente;
     }
 
+    public String enviarDiagnostico(Diagnostico diagnostico) {
+        wisard.treinarWisard(diagnostico.getDiagnostico(), diagnostico.getSintomas());
+        return "Diagnóstico recebido com sucesso!";
+    }
+    
+    
     public static void main(String[] args) {
         ControllerServer controlador = new ControllerServer();
         controlador.iniciarServidor();
     }
 
-    public String enviarDiagnostico(Diagnostico diagnostico) {
-        wisard.treinarWisard(diagnostico.getDiagnostico(), diagnostico.getSintomas());
-        return "Diagnóstico recebido com sucesso!";
-    }
 }

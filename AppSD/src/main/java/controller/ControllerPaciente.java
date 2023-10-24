@@ -24,7 +24,7 @@ public class ControllerPaciente {
         return new Socket(endereco, SERVER_PORT);
     }
 
-    private <T> T enviarSolicitacao(DadosInterface dados, Class<T> responseType) {
+    private <T> T enviarSolicitacao(DadosInterface dados, Class<T> classeObjeto) {
         try (
             Socket socket = conectarAoServidor();
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(socket.getOutputStream());
@@ -33,7 +33,7 @@ public class ControllerPaciente {
             objectOutputStream.writeObject(dados);
             objectOutputStream.flush();
             Object resposta = objectInputStream.readObject();
-            return responseType.cast(resposta);
+            return classeObjeto.cast(resposta);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
             return null;
