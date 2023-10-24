@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import model.Diagnostico;
 
 public class Wisard {
     private final Map<String, Map<String, Boolean>> celulasRAM;
@@ -21,15 +20,7 @@ public class Wisard {
         }
     }
     
-    
-    public void treinarWisardComDiagnósticos(List<Diagnostico> diagnósticos) {
-        for (Diagnostico diagnóstico : diagnósticos) {
-            List<String> sintomasAssociados = diagnóstico.getSintomas();
-            treinar(diagnóstico.getDiagnostico(), sintomasAssociados);
-        }
-    }
-
-    public void treinar(String diagnostico, List<String> sintomasAssociados) {
+    public void treinarWisard(String diagnostico, List<String> sintomasAssociados) {
         if (!existeDiagnostico(diagnostico)) {
             System.out.println("Diagnóstico não existe na base de dados: " + diagnostico);
         }
@@ -57,7 +48,7 @@ public class Wisard {
         return obterDiagnosticoPrevisto(contagemAtivacoes);
     }
 
-    public double mapearEntrada(double x) {
+    private double mapearEntrada(double x) {
         return 1.0 / (1.0 + Math.exp(-x));
     }
 

@@ -1,7 +1,8 @@
+model\DadosInterface.class
 controller\Requisicao.class
-model\DadosServer.class
 controller\Wisard.class
 controller\ControllerServer.class
+model\Diagnostico.class
+server\Server$1.class
 model\Paciente.class
 server\Server.class
-model\DadosPaciente.class

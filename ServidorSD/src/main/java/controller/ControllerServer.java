@@ -15,7 +15,6 @@ public class ControllerServer {
     private final Wisard wisard;
     private final ArrayList<String> possiveisDiagnosticos = new ArrayList<>(Arrays.asList("Gripe",  "Artrite Reumatoide", "Asma Alérgica", "Enxaqueca Crônica","Bronquite Aguda"));
     private final ArrayList<String> sintomasDisponiveis = new ArrayList<>(Arrays.asList("Febre", "Tosse", "Coriza", "Fadiga", "Dor nas articulações", "Espirro","Falta de ar", "Dor de cabeça", "Inchaço nas articulações", "Dor no peito", "Febre"));
-    private List<Diagnostico> diagnosticosRecebidos = new ArrayList<>();
  
     public ControllerServer() {
         this.servidor = new Server(this);
@@ -39,8 +38,7 @@ public class ControllerServer {
     }
 
     public String enviarDiagnostico(Diagnostico diagnostico) {
-        diagnosticosRecebidos.add(diagnostico);
-        wisard.treinarWisardComDiagnósticos(diagnosticosRecebidos);
+        wisard.treinarWisard(diagnostico.getDiagnostico(), diagnostico.getSintomas());
         return "Diagnóstico recebido com sucesso!";
     }
 }
