@@ -20,17 +20,20 @@ public class Wisard {
         }
     }
     
-    public void treinarWisard(String diagnostico, List<String> sintomasAssociados) {
+    public String treinarWisard(String diagnostico, List<String> sintomasAssociados) {
+        String mensagem = "Erro ao cadastrar diagnóstico";
         if (!existeDiagnostico(diagnostico)) {
-            System.out.println("Diagnóstico não existe na base de dados: " + diagnostico);
+            mensagem = "Diagnóstico não existe na base de dados: " + diagnostico;
         }
         for (String sintoma : sintomasAssociados) {
             if (existeSintoma(sintoma)) {
                 celulasRAM.get(diagnostico).put(sintoma, true);
+                mensagem = "Diagnóstico recebido com sucesso!";
             } else {
                 System.out.println("Aviso: O sintoma '" + sintoma + "' não existe na base de dados para o diagnóstico '" + diagnostico + "'.");
             }
         }
+        return mensagem;
     }
 
     public String classificar(List<String> sintomasPaciente) {

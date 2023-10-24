@@ -58,7 +58,6 @@ public class Interface extends javax.swing.JFrame {
         jScrollPane3 = new javax.swing.JScrollPane();
         listaDeSintomas1 = new javax.swing.JList<>();
         jButton3 = new javax.swing.JButton();
-        btListarPacientes1 = new javax.swing.JButton();
         cmbDiagnosticos = new javax.swing.JComboBox<>();
         painelAutomatico = new javax.swing.JPanel();
         txtTitulo1 = new javax.swing.JLabel();
@@ -84,14 +83,12 @@ public class Interface extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 253, Short.MAX_VALUE)
-                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(76, 76, 76)
-                .addComponent(txtTitulo)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtTitulo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 383, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -100,7 +97,7 @@ public class Interface extends javax.swing.JFrame {
                 .addComponent(txtTitulo)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2)
-                .addContainerGap())
+                .addGap(15, 15, 15))
         );
 
         txtTitulo2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -119,7 +116,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Selecionar sintomas : ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jScrollPane3.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Selecionar sintomas :", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         listaDeSintomas1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "\n"));
         listaDeSintomas1.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -142,15 +139,6 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        btListarPacientes1.setBackground(new java.awt.Color(204, 255, 204));
-        btListarPacientes1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        btListarPacientes1.setText("Diagnósticos");
-        btListarPacientes1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btListarPacientesActionPerformed(evt);
-            }
-        });
-
         cmbDiagnosticos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Gripe", "Artrite Reumatoide", "Asma Alérgica", "Enxaqueca Crônica", "Bronquite Aguda" }));
         cmbDiagnosticos.setSelectedIndex(-1);
 
@@ -161,45 +149,39 @@ public class Interface extends javax.swing.JFrame {
             .addGroup(painelManualLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelManualLayout.createSequentialGroup()
-                        .addGroup(painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 368, Short.MAX_VALUE)
+                    .addGroup(painelManualLayout.createSequentialGroup()
+                        .addGroup(painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtTitulo2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addGroup(painelManualLayout.createSequentialGroup()
                                 .addGap(6, 6, 6)
-                                .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(27, 27, 27)
-                                .addComponent(btEnviarDiagnostico, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(btListarPacientes1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(painelManualLayout.createSequentialGroup()
-                                .addGap(0, 6, Short.MAX_VALUE)
                                 .addComponent(txtsintomas2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(cmbDiagnosticos, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(6, 6, 6)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(cmbDiagnosticos, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addContainerGap())))
             .addGroup(painelManualLayout.createSequentialGroup()
-                .addGap(34, 34, 34)
-                .addComponent(txtTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, 314, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(37, 37, 37)
+                .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(45, 45, 45)
+                .addComponent(btEnviarDiagnostico, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         painelManualLayout.setVerticalGroup(
             painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelManualLayout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addContainerGap()
                 .addComponent(txtTitulo2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbDiagnosticos, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                    .addComponent(cmbDiagnosticos, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtsintomas2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelManualLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton3)
-                    .addComponent(btEnviarDiagnostico)
-                    .addComponent(btListarPacientes1))
-                .addGap(19, 19, 19))
+                    .addComponent(btEnviarDiagnostico))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Diagnóstico Manual", painelManual);
@@ -209,7 +191,7 @@ public class Interface extends javax.swing.JFrame {
         txtTitulo1.setText("Diagnóstico automático");
 
         txtsintomas1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        txtsintomas1.setText("Paciente");
+        txtsintomas1.setText("Nome paciente");
 
         btEnviarDados.setBackground(new java.awt.Color(102, 255, 0));
         btEnviarDados.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -220,7 +202,7 @@ public class Interface extends javax.swing.JFrame {
             }
         });
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Selecionar sintomas : ", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
+        jScrollPane1.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Selecionar sintomas", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 14))); // NOI18N
 
         listaDeSintomas.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "\n"));
         listaDeSintomas.setFont(new java.awt.Font("Segoe UI", 0, 13)); // NOI18N
@@ -256,45 +238,45 @@ public class Interface extends javax.swing.JFrame {
         painelAutomatico.setLayout(painelAutomaticoLayout);
         painelAutomaticoLayout.setHorizontalGroup(
             painelAutomaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAutomaticoLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addComponent(txtsintomas1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(txtNomePaciente)
+                .addGap(15, 15, 15))
             .addGroup(painelAutomaticoLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(painelAutomaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAutomaticoLayout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(27, 27, 27)
-                        .addComponent(btEnviarDados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btListarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addContainerGap())
+                    .addComponent(jScrollPane1)
                     .addGroup(painelAutomaticoLayout.createSequentialGroup()
-                        .addGap(8, 8, 8)
-                        .addComponent(txtsintomas1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtNomePaciente))))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btEnviarDados, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btListarPacientes, javax.swing.GroupLayout.DEFAULT_SIZE, 126, Short.MAX_VALUE)))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAutomaticoLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(txtTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 324, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(27, 27, 27))
+                .addContainerGap()
+                .addComponent(txtTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         painelAutomaticoLayout.setVerticalGroup(
             painelAutomaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, painelAutomaticoLayout.createSequentialGroup()
-                .addGap(13, 13, 13)
+                .addContainerGap()
                 .addComponent(txtTitulo1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(13, 13, 13)
                 .addGroup(painelAutomaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtsintomas1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)
+                    .addComponent(txtsintomas1)
+                    .addComponent(txtNomePaciente, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(painelAutomaticoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton2)
                     .addComponent(btEnviarDados)
                     .addComponent(btListarPacientes))
-                .addGap(19, 19, 19))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Diagnóstico Automático", painelAutomatico);
@@ -305,8 +287,8 @@ public class Interface extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 386, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 374, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
@@ -348,11 +330,11 @@ public class Interface extends javax.swing.JFrame {
 
     private void btEnviarDiagnosticoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btEnviarDiagnosticoActionPerformed
         ArrayList<String> sintomasSelecionados = adicionarElementosSelecionados(listaDeSintomas1);
-        String diagnostico = cmbDiagnosticos.getSelectedItem().toString();
-        
-        if(diagnostico.isEmpty() || sintomasSelecionados.isEmpty()){
+
+        if(cmbDiagnosticos.getSelectedItem() == null || cmbDiagnosticos.getSelectedItem().toString().isEmpty() || sintomasSelecionados.isEmpty()){
             txtDiagnostico.setText(" Preencha todos os campos!!!");
         }else{
+            String diagnostico = cmbDiagnosticos.getSelectedItem().toString();
             String resposta = controlador.enviarDiagnostico(sintomasSelecionados, diagnostico);
             txtDiagnostico.setText(resposta);
         }
@@ -396,7 +378,6 @@ public class Interface extends javax.swing.JFrame {
     private javax.swing.JButton btEnviarDados;
     private javax.swing.JButton btEnviarDiagnostico;
     private javax.swing.JButton btListarPacientes;
-    private javax.swing.JButton btListarPacientes1;
     private javax.swing.JComboBox<String> cmbDiagnosticos;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

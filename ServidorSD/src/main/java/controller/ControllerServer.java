@@ -24,18 +24,15 @@ public class ControllerServer {
        servidor.iniciarServidor();
     }
     
-    
     public Paciente processarSolicitacaoConsulta(Paciente paciente) throws IOException {
-        String predictedDiagnosis = wisard.classificar(paciente.getSintomas());
-        paciente.setDiagnostico(predictedDiagnosis);
+        String DiagnosticoPrevisto = wisard.classificar(paciente.getSintomas());
+        paciente.setDiagnostico(DiagnosticoPrevisto);
         return paciente;
     }
 
     public String enviarDiagnostico(Diagnostico diagnostico) {
-        wisard.treinarWisard(diagnostico.getDiagnostico(), diagnostico.getSintomas());
-        return "Diagnóstico recebido com sucesso!";
+        return  wisard.treinarWisard(diagnostico.getDiagnostico(), diagnostico.getSintomas());
     }
-    
     
     public static void main(String[] args) {
         ControllerServer controlador = new ControllerServer();
