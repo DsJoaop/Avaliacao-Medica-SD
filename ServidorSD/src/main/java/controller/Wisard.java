@@ -1,6 +1,7 @@
 package controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,16 @@ public class Wisard {
                 celulasRAM.get(diagnostico).put(sintoma, false);
             }
         }
+        this.treinoInicial();
+    }
+    
+    public final void treinoInicial(){
+        // Treinar os 5 diagnósticos com os sintomas associados
+        treinarWisard("Gripe", Arrays.asList("Febre", "Tosse", "Coriza"));
+        treinarWisard("Artrite Reumatoide", Arrays.asList("Dor nas articulações", "Inchaço nas articulações"));
+        treinarWisard("Asma Alérgica", Arrays.asList("Tosse", "Falta de ar"));
+        treinarWisard("Enxaqueca Crônica", Arrays.asList("Dor de cabeça"));
+        treinarWisard("Bronquite Aguda", Arrays.asList("Tosse", "Febre", "Falta de ar"));
     }
     
     public String treinarWisard(String diagnostico, List<String> sintomasAssociados) {
